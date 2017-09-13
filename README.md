@@ -1,4 +1,19 @@
-# ec601_team18_hw1
-# try to lear how to use github
-# GitHubƒ„ø…’Ê «66666
-# Git remote add origin
+# EC601 (Team 18)
+# Assignment 1
+# Option 1: Changes to httpstat
+
+## Members
+
+## Usage
+
+Simply:
+
+```bash
+python httpstat.py httpbin.org/get
+```
+
+Sample output:
+
+![screenshot]
+
+
