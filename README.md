@@ -3,11 +3,11 @@
 ## Assignment 1: Changes to httpstat [Option 1]
 
 ## Members
-angrySloth357: Shreeya Khadka  
+**angrySloth357**: Shreeya Khadka  
  
-squirrelbomb: Tianzhi Wu  
+**squirrelbomb**: Tianzhi Wu  
 
-RunzhouHan: Runzhou Han
+**RunzhouHan**: Runzhou Han
 
 ## Usage
 
