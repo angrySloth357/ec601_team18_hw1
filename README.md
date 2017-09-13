@@ -11,10 +11,15 @@
 
 ## Usage
 
+Command:
 ```bash
-python httpstat.py httpbin.org/get
+python httpstat.py <url>
 ```
 
+Example:
+```bash
+python httpstat.py https://google.com
+```
 
 **Original Sample Output:**
 
