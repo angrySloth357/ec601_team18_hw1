@@ -1,8 +1,13 @@
-# EC601 (Team 18)
-# Assignment 1
-# Option 1: Changes to httpstat
+# EC601 A2 (Team 18)
+
+## Assignment 1
+
+## Option 1: Changes to httpstat
 
 ## Members
+angrySloth357: Shreeya Khadka
+squirrelbomb: Tianzhi Wu
+RunzhouHan: Runzhou Han
 
 ## Usage
 
@@ -12,8 +17,8 @@ Simply:
 python httpstat.py httpbin.org/get
 ```
 
-Sample output:
+Original Sample Output:
 
-![screenshot]
+![screenshot](day0.png)
 
 
