@@ -11,13 +11,12 @@
 
 ## Usage
 
-Simply:
-
 ```bash
 python httpstat.py httpbin.org/get
 ```
 
-Original Sample Output:
+
+**Original Sample Output:**
 
 ![screenshot](day0.png)
 
