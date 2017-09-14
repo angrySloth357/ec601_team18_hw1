@@ -69,6 +69,7 @@ curl_format = """{
 }"""
 
 https_template = """
+HTTPS MODE
   DNS Lookup   TCP Connection   TLS Handshake   Server Processing   Content Transfer
 [   {a0000}  |     {a0001}    |    {a0002}    |      {a0003}      |      {a0004}     ]
              |                |               |                   |                  |
@@ -80,6 +81,7 @@ https_template = """
 """[1:]
 
 http_template = """
+HTTP MODE
   DNS Lookup   TCP Connection   Server Processing   Content Transfer
 [   {a0000}  |     {a0001}    |      {a0003}      |      {a0004}     ]
              |                |                   |                  |
