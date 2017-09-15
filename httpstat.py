@@ -156,8 +156,15 @@ Environments:
     print(help)
 
 my_template = None #Universal template to be used SK
-fmtA = None #Univesal fmta
-fmtB = None #Universal fmtb
+fmtA = None #Univesal fmta SK
+fmtB = None #Universal fmtb -SK
+avg_dict = dict.fromkeys(
+    ['range_dns','range_connection','range_ssl',
+    'range_server','range_transfer','time_namelookup',
+    'time_connect', 'time_pretransfer','time_starttransfer',
+    'time_total','speed_download','speed_upload'], 
+    0) #Global average dictionary for keeping all the averages
+
 
 def main():
     args = sys.argv[1:]
@@ -368,24 +375,43 @@ def main():
         print('speed_download: {:.1f} KiB/s, speed_upload: {:.1f} KiB/s'.format(
             d['speed_download'] / 1024, d['speed_upload'] / 1024))
 
+    #Adding all values needed to the average SK
+    params_needed = ['range_dns','range_connection','range_ssl',
+    'range_server','range_transfer','time_namelookup',
+    'time_connect', 'time_pretransfer','time_starttransfer',
+    'time_total','speed_download','speed_upload']
+    global avg_dict  
+    for p in params_needed:
+        avg_dict[p] += d[p]
+    #Done adding average
+
 
 if __name__ == '__main__':
-    main()
+    N = 10 #Number of times
+    for i in range(N):
+        print ('Iteration: ', i, '\n')
+        main()
     #Adding new avergae Stat SK
+    global avg_dict
     avg_stat = my_template.format(
-        # a
-        a0000 = fmtA(0),
-        a0001 = fmtA(1),
-        a0002 = fmtA(2),
-        a0003 = fmtA(3),
-        a0004 = fmtA(4),
-        #b
-        b0000 = fmtB(0),
-        b0001 = fmtB(1),
-        b0002 = fmtB(2),
-        b0003 = fmtB(3),
-        b0004 = fmtB(4),
+         # a
+        a0000=fmtA(avg_dict['range_dns']/N),
+        a0001=fmtA(avg_dict['range_connection']/N),
+        a0002=fmtA(avg_dict['range_ssl']/N),
+        a0003=fmtA(avg_dict['range_server']/N),
+        a0004=fmtA(avg_dict['range_transfer']/N),
+        # b
+        b0000=fmtB(avg_dict['time_namelookup']/N),
+        b0001=fmtB(avg_dict['time_connect']/N),
+        b0002=fmtB(avg_dict['time_pretransfer']/N),
+        b0003=fmtB(avg_dict['time_starttransfer']/N),
+        b0004=fmtB(avg_dict['time_total']/N),
     )
-    print('\n', 'Average Statistics --> ')
+    print ('\n\n')
+    print (' <--------------------- Average Statistics --------------------- > ')
+    print ()
     print (avg_stat)
-    #Done adding - SK
+    #Done adding avg stats- SK
+
+    #Print avg speed
+
