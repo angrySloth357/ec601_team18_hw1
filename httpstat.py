@@ -210,7 +210,7 @@ def main():
         print('httpstat {}'.format(__version__))
         quit(None, 0)
 
-    curl_args = args[1:]
+    curl_args = args[2:] #Changed to 2 SK
     # check curl args
     exclude_options = [
         '-w', '--write-out',
@@ -389,7 +389,13 @@ def main():
 
 
 if __name__ == '__main__':
-    N = 10 #Number of times
+
+    #### Update N based on user input #########
+    print ('SYS.ARGV: ', sys.argv)
+    print ('number from user:', sys.argv[2])    
+    N = 1 #Number of times
+    ###########################################
+
     for i in range(N):
         print ('Iteration: ', i, '\n')
         main()
