@@ -1,6 +1,7 @@
 '''
 Modified version of httpstat
 Original Source: https://github.com/reorx/httpstat
+Ojective: Print average statistics of 10
 '''
 
 #!/usr/bin/env python
@@ -69,6 +70,7 @@ curl_format = """{
 }"""
 
 https_template = """
+HTTPS MODE
   DNS Lookup   TCP Connection   TLS Handshake   Server Processing   Content Transfer
 [   {a0000}  |     {a0001}    |    {a0002}    |      {a0003}      |      {a0004}     ]
              |                |               |                   |                  |
@@ -80,6 +82,7 @@ https_template = """
 """[1:]
 
 http_template = """
+HTTP MODE
   DNS Lookup   TCP Connection   Server Processing   Content Transfer
 [   {a0000}  |     {a0001}    |      {a0003}      |      {a0004}     ]
              |                |                   |                  |
@@ -89,6 +92,7 @@ http_template = """
                                                                  total:{b0004}
 """[1:]
 
+new_template = "" #Edit later
 
 # Color code is copied from https://github.com/reorx/python-terminal-color/blob/master/color_simple.py
 ISATTY = sys.stdout.isatty()
@@ -153,6 +157,16 @@ Environments:
 """[1:-1]
     print(help)
 
+my_template = None #Universal template to be used SK
+fmtA = None #Univesal fmta SK
+fmtB = None #Universal fmtb -SK
+avg_dict = dict.fromkeys(
+    ['range_dns','range_connection','range_ssl',
+    'range_server','range_transfer','time_namelookup',
+    'time_connect', 'time_pretransfer','time_starttransfer',
+    'time_total','speed_download','speed_upload'], 
+    0) #Global average dictionary for keeping all the averages
+
 
 def main():
     args = sys.argv[1:]
@@ -197,7 +211,6 @@ def main():
         quit(None, 0)
 
     curl_args = args[1:]
-
     # check curl args
     exclude_options = [
         '-w', '--write-out',
@@ -244,12 +257,13 @@ def main():
 
     # parse output
     try:
-        d = json.loads(out)
+        d = json.loads(out) #Required output -SK
     except ValueError as e:
         print(red('Could not decode json: {}'.format(e)))
         print('curl result:', p.returncode, grayscale[16](out), grayscale[16](err))
         quit(None, 1)
     for k in d:
+        #print (k,':',d[k]) #SK
         if k.startswith('time_'):
             d[k] = int(d[k] * 1000)
 
@@ -261,6 +275,10 @@ def main():
         range_server=d['time_starttransfer'] - d['time_pretransfer'],
         range_transfer=d['time_total'] - d['time_starttransfer'],
     )
+
+    #Show stuff in d after update SK
+    #for k in d: #SK
+    #    print ('NEW-->', k) #SK
 
     # ip
     if show_ip:
@@ -318,6 +336,8 @@ def main():
         template = https_template
     else:
         template = http_template
+    global my_template #SK
+    my_template = template #SK
 
     # colorize template first line
     tpl_parts = template.split('\n')
@@ -326,9 +346,13 @@ def main():
 
     def fmta(s):
         return cyan('{:^7}'.format(str(s) + 'ms'))
+    global fmtA #SK
+    fmtA = fmta #SK
 
     def fmtb(s):
         return cyan('{:<7}'.format(str(s) + 'ms'))
+    global fmtB #SK
+    fmtB = fmtb #SK
 
     stat = template.format(
         # a
@@ -346,12 +370,78 @@ def main():
     )
     print()
     print(stat)
+    
 
     # speed, originally bytes per second
     if show_speed:
         print('speed_download: {:.1f} KiB/s, speed_upload: {:.1f} KiB/s'.format(
             d['speed_download'] / 1024, d['speed_upload'] / 1024))
 
+    #Adding all values needed to the average SK
+    params_needed = ['range_dns','range_connection','range_ssl',
+    'range_server','range_transfer','time_namelookup',
+    'time_connect', 'time_pretransfer','time_starttransfer',
+    'time_total','speed_download','speed_upload']
+    global avg_dict  
+    for p in params_needed:
+        avg_dict[p] += d[p]
+    #Done adding average
+
 
 if __name__ == '__main__':
-    main()
+    N = 10 #Number of times
+    for i in range(N):
+        print ('Iteration: ', i, '\n')
+        main()
+    #Adding new avergae Stat SK
+    global avg_dict
+    avg_stat = my_template.format(
+         # a
+        a0000=fmtA(avg_dict['range_dns']/N),
+        a0001=fmtA(avg_dict['range_connection']/N),
+        a0002=fmtA(avg_dict['range_ssl']/N),
+        a0003=fmtA(avg_dict['range_server']/N),
+        a0004=fmtA(avg_dict['range_transfer']/N),
+        # b
+        b0000=fmtB(avg_dict['time_namelookup']/N),
+        b0001=fmtB(avg_dict['time_connect']/N),
+        b0002=fmtB(avg_dict['time_pretransfer']/N),
+        b0003=fmtB(avg_dict['time_starttransfer']/N),
+        b0004=fmtB(avg_dict['time_total']/N),
+    )
+    print ('\n\n')
+    print ('<---------------------------------- Average Statistics ---------------------------------- > ')
+    print ()
+    print (avg_stat)
+    #Done adding avg stats- SK
+
+    #Print avg speed
+    print('Average speed_download: {:.1f} KiB/s \nAverage speed_upload: {:.1f} KiB/s'.format(
+            avg_dict['speed_download'] / 1024, avg_dict['speed_upload'] / 1024))
+    print ('<----------------------------------------------------------------------------------------- > ')
+    print()
+
+    ############# Print average with new_template ###################
+    new_stat = new_template.format(
+         # a
+        a0000=fmtA(avg_dict['range_dns']/N),
+        a0001=fmtA(avg_dict['range_connection']/N),
+        a0002=fmtA(avg_dict['range_ssl']/N),
+        a0003=fmtA(avg_dict['range_server']/N),
+        a0004=fmtA(avg_dict['range_transfer']/N),
+        # b
+        b0000=fmtB(avg_dict['time_namelookup']/N),
+        b0001=fmtB(avg_dict['time_connect']/N),
+        b0002=fmtB(avg_dict['time_pretransfer']/N),
+        b0003=fmtB(avg_dict['time_starttransfer']/N),
+        b0004=fmtB(avg_dict['time_total']/N),
+    )
+    print ('\n\n')
+    print ('<---------------------------------- NEW TEMPLATE ---------------------------------- > ')
+    print ()
+    print (new_stat)
+    print ('<----------------------------------------------------------------------------------------- > ')
+    print()
+    ################# END NEW TEMPLATE ######################
+
+
