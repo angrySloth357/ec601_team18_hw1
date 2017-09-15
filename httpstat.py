@@ -1,7 +1,7 @@
 '''
 Modified version of httpstat
 Original Source: https://github.com/reorx/httpstat
-Ojective: Print average statistics of 10 runs
+Ojective: Print average statistics of 10
 '''
 
 #!/usr/bin/env python
@@ -92,6 +92,7 @@ HTTP MODE
                                                                  total:{b0004}
 """[1:]
 
+new_template = "" #Edit later
 
 # Color code is copied from https://github.com/reorx/python-terminal-color/blob/master/color_simple.py
 ISATTY = sys.stdout.isatty()
@@ -335,8 +336,8 @@ def main():
         template = https_template
     else:
         template = http_template
-    global my_template
-    my_template = template
+    global my_template #SK
+    my_template = template #SK
 
     # colorize template first line
     tpl_parts = template.split('\n')
@@ -350,8 +351,8 @@ def main():
 
     def fmtb(s):
         return cyan('{:<7}'.format(str(s) + 'ms'))
-    global fmtB
-    fmtB = fmtb
+    global fmtB #SK
+    fmtB = fmtb #SK
 
     stat = template.format(
         # a
@@ -419,3 +420,28 @@ if __name__ == '__main__':
             avg_dict['speed_download'] / 1024, avg_dict['speed_upload'] / 1024))
     print ('<----------------------------------------------------------------------------------------- > ')
     print()
+
+    ############# Print average with new_template ###################
+    new_stat = new_template.format(
+         # a
+        a0000=fmtA(avg_dict['range_dns']/N),
+        a0001=fmtA(avg_dict['range_connection']/N),
+        a0002=fmtA(avg_dict['range_ssl']/N),
+        a0003=fmtA(avg_dict['range_server']/N),
+        a0004=fmtA(avg_dict['range_transfer']/N),
+        # b
+        b0000=fmtB(avg_dict['time_namelookup']/N),
+        b0001=fmtB(avg_dict['time_connect']/N),
+        b0002=fmtB(avg_dict['time_pretransfer']/N),
+        b0003=fmtB(avg_dict['time_starttransfer']/N),
+        b0004=fmtB(avg_dict['time_total']/N),
+    )
+    print ('\n\n')
+    print ('<---------------------------------- NEW TEMPLATE ---------------------------------- > ')
+    print ()
+    print (new_stat)
+    print ('<----------------------------------------------------------------------------------------- > ')
+    print()
+    ################# END NEW TEMPLATE ######################
+
+
