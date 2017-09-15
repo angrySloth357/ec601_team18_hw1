@@ -155,6 +155,9 @@ Environments:
 """[1:-1]
     print(help)
 
+my_template = None #Universal template to be used SK
+fmtA = None #Univesal fmta
+fmtB = None #Universal fmtb
 
 def main():
     args = sys.argv[1:]
@@ -199,7 +202,6 @@ def main():
         quit(None, 0)
 
     curl_args = args[1:]
-
     # check curl args
     exclude_options = [
         '-w', '--write-out',
@@ -246,12 +248,13 @@ def main():
 
     # parse output
     try:
-        d = json.loads(out)
+        d = json.loads(out) #Required output -SK
     except ValueError as e:
         print(yellow('Could not decode json: {}'.format(e)))
         print('curl result:', p.returncode, grayscale[16](out), grayscale[16](err))
         quit(None, 1)
     for k in d:
+        print (k,':',d[k]) #SK
         if k.startswith('time_'):
             d[k] = int(d[k] * 1000)
 
@@ -263,6 +266,10 @@ def main():
         range_server=d['time_starttransfer'] - d['time_pretransfer'],
         range_transfer=d['time_total'] - d['time_starttransfer'],
     )
+
+    #Show stuff in d after update SK
+    for k in d: #SK
+        print ('NEW-->', k) #SK
 
     # ip
     if show_ip:
@@ -320,6 +327,8 @@ def main():
         template = https_template
     else:
         template = http_template
+    global my_template
+    my_template = template
 
     # colorize template first line
     tpl_parts = template.split('\n')
@@ -328,9 +337,13 @@ def main():
 
     def fmta(s):
         return cyan('{:^7}'.format(str(s) + 'ms'))
+    global fmtA #SK
+    fmtA = fmta #SK
 
     def fmtb(s):
         return cyan('{:<7}'.format(str(s) + 'ms'))
+    global fmtB
+    fmtB = fmtb
 
     stat = template.format(
         # a
@@ -348,6 +361,7 @@ def main():
     )
     print()
     print(stat)
+    
 
     # speed, originally bytes per second
     if show_speed:
@@ -357,3 +371,21 @@ def main():
 
 if __name__ == '__main__':
     main()
+    #Adding new avergae Stat SK
+    avg_stat = my_template.format(
+        # a
+        a0000 = fmtA(0),
+        a0001 = fmtA(1),
+        a0002 = fmtA(2),
+        a0003 = fmtA(3),
+        a0004 = fmtA(4),
+        #b
+        b0000 = fmtB(0),
+        b0001 = fmtB(1),
+        b0002 = fmtB(2),
+        b0003 = fmtB(3),
+        b0004 = fmtB(4),
+    )
+    print('\n', 'Average Statistics --> ')
+    print (avg_stat)
+    #Done adding - SK
