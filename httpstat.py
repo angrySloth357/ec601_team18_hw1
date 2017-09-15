@@ -211,7 +211,7 @@ def main():
     ]
     for i in exclude_options:
         if i in curl_args:
-            quit(yellow('Error: {} is not allowed in extra curl args'.format(i)), 1)
+            quit(red('Error: {} is not allowed in extra curl args'.format(i)), 1)
 
     # tempfile for output
     bodyf = tempfile.NamedTemporaryFile(delete=False)
@@ -244,13 +244,13 @@ def main():
         _cmd[4] = '<tempfile>'
         _cmd[6] = '<tempfile>'
         print('> {}'.format(' '.join(_cmd)))
-        quit(yellow('curl error: {}'.format(err)), p.returncode)
+        quit(red('curl error: {}'.format(err)), p.returncode)
 
     # parse output
     try:
         d = json.loads(out) #Required output -SK
     except ValueError as e:
-        print(yellow('Could not decode json: {}'.format(e)))
+        print(red('Could not decode json: {}'.format(e)))
         print('curl result:', p.returncode, grayscale[16](out), grayscale[16](err))
         quit(None, 1)
     for k in d:
@@ -290,7 +290,7 @@ def main():
     for loop, line in enumerate(headers.split('\n')):
         if loop == 0:
             p1, p2 = tuple(line.split('/'))
-            print(green(p1) + grayscale[14]('/') + cyan(p2))
+            print(blue(p1) + grayscale[14]('/') + cyan(p2))
         else:
             pos = line.find(':')
             print(grayscale[14](line[:pos + 1]) + cyan(line[pos + 1:]))
@@ -315,7 +315,7 @@ def main():
             print(body)
     else:
         if save_body:
-            print('{} stored in: {}'.format(green('Body'), bodyf.name))
+            print('{} stored in: {}'.format(blue('Body'), bodyf.name))
 
     # remove body file
     if not save_body:
