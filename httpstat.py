@@ -92,7 +92,7 @@ HTTP MODE
                                                                  total:{b0004}
 """[1:]
 
-new_template = "" #Edit later
+new_template = "DNS Lookup={a0000} \nTCP Connection={a0001} \nTLS Handshake={a0002} \nServer Processing={a0003} \nContent Transfer={a0004}" #Edit later
 
 # Color code is copied from https://github.com/reorx/python-terminal-color/blob/master/color_simple.py
 ISATTY = sys.stdout.isatty()
@@ -400,7 +400,7 @@ if __name__ == '__main__':
         print ('Iteration: ', i, '\n')
         main()
     #Adding new avergae Stat SK
-    global avg_dict
+    #global avg_dict
     avg_stat = my_template.format(
          # a
         a0000=fmtA(avg_dict['range_dns']/N),
