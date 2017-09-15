@@ -92,7 +92,12 @@ HTTP MODE
                                                                  total:{b0004}
 """[1:]
 
-new_template = "DNS Lookup={a0000} \nTCP Connection={a0001} \nTLS Handshake={a0002} \nServer Processing={a0003} \nContent Transfer={a0004}" #Edit later
+new_template = """  DNS Lookup:{a0000} 
+                                    
+                                    TCP Connection:{a0001} 
+                                                            TLS Handshake:{a0002} 
+                                                                                    Server Processing:{a0003} 
+                                                                                                                Content Transfer:{a0004} """#Edit later
 
 # Color code is copied from https://github.com/reorx/python-terminal-color/blob/master/color_simple.py
 ISATTY = sys.stdout.isatty()
@@ -211,6 +216,7 @@ def main():
         quit(None, 0)
 
     curl_args = args[2:] #Changed to 2 SK
+    print ('args:', args)
     # check curl args
     exclude_options = [
         '-w', '--write-out',
