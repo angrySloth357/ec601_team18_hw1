@@ -397,9 +397,9 @@ def main():
 if __name__ == '__main__':
 
     #### Update N based on user input #########
-    print ('SYS.ARGV: ', sys.argv)
-    print ('number from user:', sys.argv[2])    
-    N = 1 #Number of times
+
+    N = int(sys.argv[2])  #Number of times
+   
     ###########################################
 
     for i in range(N):
