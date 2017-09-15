@@ -1,6 +1,7 @@
 '''
 Modified version of httpstat
 Original Source: https://github.com/reorx/httpstat
+Ojective: Print average statistics of 10 runs
 '''
 
 #!/usr/bin/env python
@@ -261,7 +262,7 @@ def main():
         print('curl result:', p.returncode, grayscale[16](out), grayscale[16](err))
         quit(None, 1)
     for k in d:
-        print (k,':',d[k]) #SK
+        #print (k,':',d[k]) #SK
         if k.startswith('time_'):
             d[k] = int(d[k] * 1000)
 
@@ -275,8 +276,8 @@ def main():
     )
 
     #Show stuff in d after update SK
-    for k in d: #SK
-        print ('NEW-->', k) #SK
+    #for k in d: #SK
+    #    print ('NEW-->', k) #SK
 
     # ip
     if show_ip:
@@ -408,10 +409,13 @@ if __name__ == '__main__':
         b0004=fmtB(avg_dict['time_total']/N),
     )
     print ('\n\n')
-    print (' <--------------------- Average Statistics --------------------- > ')
+    print ('<---------------------------------- Average Statistics ---------------------------------- > ')
     print ()
     print (avg_stat)
     #Done adding avg stats- SK
 
     #Print avg speed
-
+    print('Average speed_download: {:.1f} KiB/s \nAverage speed_upload: {:.1f} KiB/s'.format(
+            avg_dict['speed_download'] / 1024, avg_dict['speed_upload'] / 1024))
+    print ('<----------------------------------------------------------------------------------------- > ')
+    print()
