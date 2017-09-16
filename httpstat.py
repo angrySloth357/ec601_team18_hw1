@@ -99,6 +99,7 @@ DNS Lookup:{a0000}
                                                  TLS Handshake:{a0002} 
                                                                             Server Processing:{a0003} 
                                                                                                             Content Transfer:{a0004} 
+                                                                                                                                        overload()
 """#Edit later
 
 # Color code is copied from https://github.com/reorx/python-terminal-color/blob/master/color_simple.py
@@ -174,6 +175,9 @@ avg_dict = dict.fromkeys(
     'time_total','speed_download','speed_upload'], 
     0) #Global average dictionary for keeping all the averages
 
+def overload():
+    if sys.argv[1]>20:
+        print('overload') 
 
 def main():
     args = sys.argv[1:]
