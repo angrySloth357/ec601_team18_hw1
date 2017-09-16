@@ -92,12 +92,14 @@ HTTP MODE
                                                                  total:{b0004}
 """[1:]
 
-new_template = """  DNS Lookup:{a0000} 
+new_template = """  
+DNS Lookup:{a0000} 
                                     
-                                    TCP Connection:{a0001} 
-                                                            TLS Handshake:{a0002} 
-                                                                                    Server Processing:{a0003} 
-                                                                                                                Content Transfer:{a0004} """#Edit later
+                     TCP Connection:{a0001} 
+                                                 TLS Handshake:{a0002} 
+                                                                            Server Processing:{a0003} 
+                                                                                                            Content Transfer:{a0004} 
+"""#Edit later
 
 # Color code is copied from https://github.com/reorx/python-terminal-color/blob/master/color_simple.py
 ISATTY = sys.stdout.isatty()
@@ -125,10 +127,10 @@ underline = make_color(4)
 grayscale = {(i - 232): make_color('38;5;' + str(i)) for i in xrange(232, 256)}
 
 
-def quit(s, code=0):
-    if s is not None:
-        print(s)
-    sys.exit(code)
+#def quit(s, code=0):
+    #if s is not None:
+        #print(s)
+    #sys.exit(code)
 
 
 def print_help():
