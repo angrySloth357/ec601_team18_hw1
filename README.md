@@ -4,9 +4,7 @@
 
 ## Members
 **angrySloth357**: Shreeya Khadka  
- 
 **squirrelbomb**: Tianzhi Wu  
-
 **RunzhouHan**: Runzhou Han
 
 ## Summary
@@ -20,7 +18,7 @@ Changed the original httpstat program which gives statistics of a web-page conne
 
 Command:
 ```bash
-python httpstat.py <url>
+python httpstat.py <url> <options>
 ```
 
 Example:
@@ -28,8 +26,22 @@ Example:
 python httpstat.py https://google.com
 ```
 
-**Old Sample Output:**
+**Old Example Output:**
 
 ![screenshot](day0.png)
 
+## New Usage
 
+Command:
+```bash
+python httpstat.py <url> <N> <options>
+```
+
+Example:
+```bash
+python httpstat https://google.com 5
+```
+
+**New Example Output**
+![screenshot](day1_1)
+![screenshot](day1_2)

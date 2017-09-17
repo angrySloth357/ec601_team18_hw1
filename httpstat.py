@@ -216,7 +216,7 @@ def main():
         quit(None, 0)
 
     curl_args = args[2:] #Changed to 2 SK
-    print ('args:', args)
+    #print ('args:', args)
     # check curl args
     exclude_options = [
         '-w', '--write-out',
