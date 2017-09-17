@@ -42,5 +42,14 @@ Example:
 python httpstat https://google.com 5
 ```
 
+## New Template
+
+New template shows the statistics in different lines and there is indentation in each line.
+
+## New Font Color
+
+Convert print color of output of 'check curl args','print stderr' and 'parse output' these three parts from yellow to red, and output of 'body' part from blue to green. 
+
+
 **New Example Output**
 ![screenshot](day1.png)
