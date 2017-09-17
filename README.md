@@ -9,7 +9,14 @@
 
 **RunzhouHan**: Runzhou Han
 
-## Usage
+## Summary
+Changed the original httpstat program which gives statistics of a web-page connection via:
+
+1. Adding option to print average statistics for a user defined number of web-connections to one website.
+2. Changing the display font color.
+3. Adding new display template. 
+
+## Old Usage
 
 Command:
 ```bash
@@ -21,9 +28,8 @@ Example:
 python httpstat.py https://google.com
 ```
 
-**Original Sample Output:**
+**Old Sample Output:**
 
 ![screenshot](day0.png)
 
-new branch trying
-def new brach()
+
