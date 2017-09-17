@@ -43,5 +43,5 @@ python httpstat https://google.com 5
 ```
 
 **New Example Output**
-![screenshot](day1_1)
-![screenshot](day1_2)
+![screenshot](day1_1.png)
+![screenshot](day1_2.png)
