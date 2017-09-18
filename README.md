@@ -41,6 +41,9 @@ Example:
 ```bash
 python httpstat https://google.com 5
 ```
+## Average Statistics
+
+Display average statistics after **N** user specified web requests. 
 
 ## New Template
 
